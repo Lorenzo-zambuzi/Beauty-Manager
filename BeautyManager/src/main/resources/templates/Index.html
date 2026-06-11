@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="/css/Barra-style.css">
+	<link rel="stylesheet" href="/css/Index-style.css">
+    
+    <title>index</title>
+</head>
+<body>
+	
+	<!--Começo da Barra lateral-->
+	<main>
+		<nav class="menu-lateral">
+	
+		     <div class="btn-expandir">
+		     	<i class="bi bi-list"></i>
+		     </div>
+	
+			<ul>
+		    	<li class="item-menu">
+		        	<a th:href="@{/way/index}">
+		            	<span class="icon"><i class="bi bi-house"></i></span>
+		                <span class="txt-link">Home</span>
+		            </a>
+		        </li>
+	
+		        <li class="item-menu">
+		        	<a th:href="@{/way/agendamento}">
+		            	<span class="icon"><i class="bi bi-calendar"></i></span>
+		                <span class="txt-link">Agenda</span>
+		            </a>
+		        </li>
+				
+		        <li class="item-menu">
+		        	<a th:href="@{/way/profissional}">
+		            	<span class="icon"><i class="bi bi-person-vcard"></i></span>
+		                <span class="txt-link">Profissionais</span>
+		            </a>
+				</li>
+				
+		        <li class="item-menu">
+		        	<a th:href="@{/way/cliente}">
+		            	<span class="icon"><i class="bi bi-people"></i></span>
+		                <span class="txt-link">Clientes</span>
+		            </a>
+		        </li>
+				
+		        <li class="item-menu">
+		        	<a th:href="@{/way/servico}">
+		            	<span class="icon"><i class="bi bi-scissors"></i></span>
+		                <span class="txt-link">Serviços</span>
+		            </a>
+		        </li>
+	
+				<li class="item-menu">
+					<a th:href="@{/way/estatisticas}">
+						<span class="icon"><i class="bi bi-percent"></i></span>
+						<span class="txt-link">Estatísticas</span>
+					</a>
+				</li>
+				
+				<li class="item-menu">
+					<a th:href="@{/way/out}">
+						<span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+						<span class="txt-link">Sair</span>
+					</a>
+				</li>
+		    </ul>
+		</nav>
+	</main>
+	<!--Fim da Barra Lateral-->
+	
+	<div class="corpo">
+
+		<div class="caixa">
+			<h1 th:text="'Ola ' + ' ' + ${user.nome} + '!'"></h1>
+		</div>
+		
+		<div class="caixa">
+			<h2>Agenda de hoje</h2>
+			<table class="table">
+				<thead class="table-dark">
+					<tr>
+						<th>Cabeleireiro</th>
+						<th>Serviço</th>
+						<th>Cliente</th>
+						<th>Data</th>
+						<th>Horário</th>
+						<th>Preço</th>
+					</tr>
+				</thead>
+						
+					<tr th:each="agendamento : ${agendaHoje}">
+							
+						<td>
+							<p th:each="cabeleireiro : ${cabeleireiros}" 
+							th:text="${cabeleireiro.idProfissional == agendamento.idProfissional} ? ${cabeleireiro.nome} : ''">
+							</p>
+						</td>
+							
+						<td>
+							<p th:each="servico : ${servicos}" 
+							th:text="${servico.idServico == agendamento.idServico} ? ${servico.nome} : ''">
+							</p>
+						</td>
+							
+						<td>
+							<p th:each="cliente : ${clientes}"
+							th:text="${cliente.idCliente == agendamento.idCliente} ? ${cliente.nome} : ''">	
+							</p>
+						</td>
+							
+						<td th:text="${#temporals.format(agendamento.data,'dd/MM/yyyy')}"></td>
+							
+						<td th:text="${agendamento.horario}"></td>
+							
+						<td>
+							<p th:each="servico : ${servicos}" 
+							th:text="${servico.idServico == agendamento.idServico} ? 'R$ '+${#numbers.formatDecimal(servico.preco, 1, 'POINT', 2, 'COMMA')} : ''">
+							</p>
+						</td>
+					</tr>
+			</table>
+			<br>
+			<h3 th:text="'Total a receber: R$' + ${#numbers.formatDecimal(total, 1, 'POINT', 2, 'COMMA')}"></h3>
+			<br>
+			<!--<h3> Serviços de hoje: 
+				<span th:each="servico : ${servicosHoje}" th:text="${servico.nome} + ' '"></span>
+			</h3>-->
+		</div>
+		
+		
+	</div>
+</body>
+</html>

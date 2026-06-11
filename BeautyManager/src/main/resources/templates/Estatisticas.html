@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="/css/Barra-style.css">
+	<link rel="stylesheet" href="/css/Index-style.css">
+    
+    <title>index</title>
+</head>
+<body>
+	
+	<!--Começo da Barra lateral-->
+	<nav class="menu-lateral">
+
+	     <div class="btn-expandir">
+	     	<i class="bi bi-list"></i>
+	     </div>
+
+		<ul>
+	    	<li class="item-menu">
+	        	<a th:href="@{/way/index}">
+	            	<span class="icon"><i class="bi bi-house"></i></span>
+	                <span class="txt-link">Home</span>
+	            </a>
+	        </li>
+
+	        <li class="item-menu">
+	        	<a th:href="@{/way/agendamento}">
+	            	<span class="icon"><i class="bi bi-calendar"></i></span>
+	                <span class="txt-link">Agenda</span>
+	            </a>
+	        </li>
+			
+	        <li class="item-menu">
+	        	<a th:href="@{/way/profissional}">
+	            	<span class="icon"><i class="bi bi-person-vcard"></i></span>
+	                <span class="txt-link">Profissionais</span>
+	            </a>
+			</li>
+			
+	        <li class="item-menu">
+	        	<a th:href="@{/way/cliente}">
+	            	<span class="icon"><i class="bi bi-people"></i></span>
+	                <span class="txt-link">Clientes</span>
+	            </a>
+	        </li>
+			
+	        <li class="item-menu">
+	        	<a th:href="@{/way/servico}">
+	            	<span class="icon"><i class="bi bi-scissors"></i></span>
+	                <span class="txt-link">Serviços</span>
+	            </a>
+	        </li>
+			
+			<li class="item-menu">
+				<a th:href="@{/way/estatisticas}">
+					<span class="icon"><i class="bi bi-percent"></i></span>
+					<span class="txt-link">Estatísticas</span>
+				</a>
+			</li>
+
+			<li class="item-menu">
+				<a th:href="@{/way/out}">
+					<span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+					<span class="txt-link">Sair</span>
+				</a>
+			</li>
+	    </ul>
+	</nav>
+	<!--Fim da Barra Lateral-->
+	
+	<main class="corpo">
+	    <div class="caixa">
+			<h2>Melhor Cliente: </h2>
+			<p th:each="cliente : ${clientesFrequentes}" th:text="'- ' + ${cliente.nome} + '&#013;'"></p>
+		</div>
+		<div class="caixa">
+			<h2>Melhor Profissional: </h2>
+			<p th:each="profissional : ${profissionaisFrequentes}" th:text="'- ' + ${profissional.nome} + '&#013;'"><br/></p>
+		</div>
+		<div class="caixa">
+			<h2>Melhor Serviço: </h2>
+			<p th:each="servico : ${servicosFrequentes}" th:text="'- ' + ${servico.nome} + ' '">&#013;</p>
+		</div>
+		<div class="caixa">
+			<h2>Total recebido: </h2>
+			<p th:text="'R$' + ${#numbers.formatDecimal(total, 1, 'POINT', 2, 'COMMA')}"></p>
+		</div>
+	</main>
+</body>
+</html>

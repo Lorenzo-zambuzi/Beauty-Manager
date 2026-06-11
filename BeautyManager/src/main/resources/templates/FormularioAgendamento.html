@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Formulario-style.css">
+    <title>Formulário de agendamento</title>
+</head>
+<body>
+
+    <main class="container">
+
+        <form class="formulario" th:action="${novo} ? @{/agendamento/salvar/novo} : @{/agendamento/salvar }" th:object="${agendamento}"  method="post">
+
+			<a th:href="@{/agendamento/listar}"><- sair</a>
+            <h1 th:text="${novo} ?'Novo agendamento' : 'Editar agendamento'"></h1>
+
+            <table class="tabela">
+                <tr>
+                    <th>ID</th>
+                    <td> <input type="text" class="input-box" th:field="*{idAgendamento}" readonly> </td>
+                </tr>
+
+                <tr>
+                    <th>Cabeleireiro</th>
+					<td> 
+						<select class="input-box" th:field="*{idProfissional}" required  >
+							<option th:each="profissional : ${cabeleireiros}" th:value="${profissional.idProfissional}" th:text="${profissional.nome}">
+							</option>
+						</select>
+					</td>
+				</tr>
+
+                <tr>
+                    <th>Serviço</th>
+					<td>
+						<select class="input-box" th:field="*{idServico}" required  >
+							<option th:each="servico : ${servicos}" th:value="${servico.idServico}" th:text="${servico.nome}">
+							</option>
+						</select>
+					</td>
+                </tr>
+				
+				<tr>
+					<th>Cliente</th>
+					<td>
+						<select class="input-box" th:field="*{idCliente}" required  >
+							<option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nome}">
+							</option>
+						</select>
+					</td>
+				</tr>
+
+                <tr>
+                    <th>Data</th>
+                    <td> <input type="date" class="input-box" th:field="*{data}" required > </td>
+                </tr>
+
+                <tr>
+                    <th>Horário</th>
+                    <td> <input type="time" class="input-box" th:field="*{horario}" required> </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" class="btn-salvar"><p>Salvar</p></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </main>
+    
+</body>
+</html>

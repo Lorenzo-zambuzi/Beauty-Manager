@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Formulario-style.css">
+    <title>Formulário de profissional</title>
+</head>
+<body>
+
+    <main class="container">
+
+        <form class="formulario" th:action="@{/profissional/salvar}" th:object="${profissional}"  method="post">
+
+			<a th:href="@{/index}"><- sair</a>
+            <h1>Perfil Profissional</h1>
+
+            <table class="tabela">
+                <tr>
+                    <th>ID</th>
+                    <td> <input type="text" class="input-box" th:field="*{idProfissional}" readonly> </td>
+                </tr>
+
+                <tr>
+                    <th>Nome</th>
+                    <td> <input type="text" class="input-box" th:field="*{nome}"> </td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td> <input type="text" class="input-box" th:field="*{email}"> </td>
+                </tr>
+				
+				<tr>
+					<th>Senha</th>
+					<td> <input type="text" class="input-box" th:field="*{senha}" readonly> </td>
+				</tr>
+
+                <tr>
+                    <th>Telefone</th>
+                    <td> <input type="text" class="input-box" th:field="*{telefone}"> </td>
+                </tr>
+
+                <tr>
+                    <th>Função</th>
+                    <td> 
+                    	<input class="input-box" th:field="*{funcao}" readonly>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Salário</th>
+                    <td> <input type="text" class="input-box" th:field="*{salario}" readonly> </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" class="btn-salvar"><p>Salvar</p></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </main>
+    
+</body>
+</html>
