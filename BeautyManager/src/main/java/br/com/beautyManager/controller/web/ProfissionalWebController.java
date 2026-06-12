@@ -76,11 +76,12 @@ public class ProfissionalWebController {
 		return"redirect:/profissional/listar";
 	}
 	
-	@PostMapping("/salvar")
-	public String salvarProfissional(HttpSession session, Profissional profissional) {
-		
-		if(ps.buscarPorEmail(profissional.getEmail()) == null)
+	@PostMapping("/salvar/novo")
+	public String salvarNovoProfissional(HttpSession session, Profissional profissional) {
+			
+		if(ps.buscarPorEmail(profissional.getEmail()) == null) {
 			ps.salvarProfissional(profissional);
+		}
 		
 		Profissional usuario = (Profissional) session.getAttribute("user");
 		if(!usuario.getFuncao().equals("gerente")) {
@@ -93,6 +94,31 @@ public class ProfissionalWebController {
 		
 		return "redirect:/profissional/listar";
 	}
+	
+	@PostMapping("/salvar/editar")
+	public String salvarEditarProfissional(HttpSession session, Profissional profissional) {
+		
+		if(ps.buscarPorEmail(profissional.getEmail()) == null || ps.buscarPorId(profissional.getIdProfissional()).getEmail().equals(profissional.getEmail()) ) {
+			if(!profissional.getFuncao().equals("gerente")) {
+				if(ps.buscarPorFuncao("gerente").size() > 1 || profissional.getFuncao().equals("gerente")) {
+					ps.salvarProfissional(profissional);
+				}
+			}
+			else {
+				ps.salvarProfissional(profissional);
+			}
+		}
+			
+		/*if(ps.buscarPorEmail(profissional.getEmail()) == null || ps.buscarPorId(profissional.getIdProfissional()).getEmail().equals(profissional.getEmail()) ) {
+			ps.salvarProfissional(profissional);
+		}*/
+		
+		Profissional usuario = (Profissional) session.getAttribute("user");
+		if(!usuario.getFuncao().equals("gerente"))
+			return "redirect:/index";
+		
+		return "redirect:/profissional/listar";
+		}
 	
 	@GetMapping("/listar")
 	public String listarProfissionais(HttpSession session, Model model) {

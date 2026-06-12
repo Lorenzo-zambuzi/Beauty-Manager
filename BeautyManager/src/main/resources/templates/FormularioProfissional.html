@@ -10,7 +10,7 @@
 
     <main class="container">
 
-        <form class="formulario" th:action="@{/profissional/salvar}" th:object="${profissional}"  method="post">
+        <form class="formulario" th:action="${novo} ? @{/profissional/salvar/novo} : @{/profissional/salvar/editar}" th:object="${profissional}"  method="post">
 
 			<a th:href="@{/profissional/listar}"><- sair</a>
             <h1 th:text="${novo} ?'Novo profissional' : 'Editar profissional'"></h1>

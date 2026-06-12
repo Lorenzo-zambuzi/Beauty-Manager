@@ -66,9 +66,15 @@ public class ProfissionalService {
 		return profissional;
 	}
 	
-	// deletar
+	// deletar 
 	public void deletarProfissional(int id) {
-		if(!buscarPorId(id).getFuncao().equals("gerente"))
+		if(buscarPorId(id).getFuncao().equals("gerente")) {
+			if(buscarPorFuncao("gerente").size() > 1) {
+				profissionalRepository.deleteById(id);
+			}
+		}
+		else {
 			profissionalRepository.deleteById(id);
+		}
 	}
 }
